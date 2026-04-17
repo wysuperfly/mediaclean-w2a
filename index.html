@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>MediaClean - Storage Cleaner</title>
+<meta name="description" content="MediaClean: Storage Cleaner. Free to try, works offline, 100% private.">
+
+<!-- Facebook Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '23934308702934257');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=23934308702934257&ev=PageView&noscript=1"/></noscript>
+
+<!-- AppsFlyer Smart Script (generated from AF dashboard) -->
+<script src="https://onelinksmartscript.appsflyersdk.com/onelink-smart-script-latest.js"></script>
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --primary: #007AFF;
+    --primary-dark: #0056CC;
+    --bg: #000000;
+    --card-bg: #1C1C1E;
+    --text: #FFFFFF;
+    --text-secondary: #8E8E93;
+    --green: #34C759;
+    --orange: #FF9500;
+    --red: #FF3B30;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Hero */
+.hero {
+    padding: 60px 20px 40px;
+    text-align: center;
+    background: linear-gradient(180deg, #1a1a2e 0%, #000 100%);
+    position: relative;
+    overflow: hidden;
+}
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 50% 50%, rgba(0,122,255,0.08) 0%, transparent 50%);
+    animation: pulse 4s ease-in-out infinite;
+}
+@keyframes pulse {
+    0%,100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 1; }
+}
+
+.app-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 22px;
+    margin: 0 auto 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,122,255,0.3);
+    position: relative;
+    z-index: 1;
+}
+.app-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero h1 {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+}
+.hero h1 span {
+    color: var(--primary);
+}
+.hero .subtitle {
+    font-size: 17px;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--primary);
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 16px 40px;
+    border-radius: 14px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 4px 20px rgba(0,122,255,0.4);
+}
+.cta-button:active {
+    transform: scale(0.97);
+    background: var(--primary-dark);
+}
+.cta-button .apple-logo {
+    font-size: 22px;
+}
+
+.free-tag {
+    display: inline-block;
+    background: rgba(52,199,89,0.15);
+    color: var(--green);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-top: 12px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Storage Demo */
+.storage-demo {
+    padding: 32px 20px;
+}
+.storage-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 24px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+.storage-title {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    text-align: center;
+}
+.storage-bar-bg {
+    height: 28px;
+    background: #2C2C2E;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    position: relative;
+}
+.storage-bar-used {
+    height: 100%;
+    border-radius: 8px;
+    transition: width 1.5s ease-out;
+    position: relative;
+}
+.storage-bar-used.before {
+    background: linear-gradient(90deg, var(--red), var(--orange));
+    width: 0;
+}
+.storage-bar-used.after {
+    background: linear-gradient(90deg, var(--green), #30D158);
+    width: 0;
+}
+.storage-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+.storage-saved {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--green);
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+/* Features */
+.features {
+    padding: 20px 20px 32px;
+}
+.features-grid {
+    max-width: 400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.feature-item {
+    background: var(--card-bg);
+    border-radius: 14px;
+    padding: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+.feature-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+.feature-icon.photos { background: rgba(255,59,48,0.15); }
+.feature-icon.video { background: rgba(255,149,0,0.15); }
+.feature-icon.battery { background: rgba(52,199,89,0.15); }
+.feature-icon.privacy { background: rgba(0,122,255,0.15); }
+.feature-icon.offline { background: rgba(175,82,222,0.15); }
+.feature-text h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.feature-text p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+/* Stats */
+.stats {
+    padding: 24px 20px;
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+.stat-item {
+    text-align: center;
+}
+.stat-number {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--primary);
+}
+.stat-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+/* Reviews */
+.reviews {
+    padding: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+.review-card {
+    background: var(--card-bg);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 12px;
+}
+.review-stars {
+    color: #FF9500;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+.review-text {
+    font-size: 15px;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+.review-author {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* Bottom CTA */
+.bottom-cta {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 12px 20px;
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    z-index: 100;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+.bottom-cta .mini-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.bottom-cta .mini-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.bottom-cta .mini-info {
+    flex: 1;
+    min-width: 0;
+}
+.bottom-cta .mini-name {
+    font-size: 15px;
+    font-weight: 600;
+}
+.bottom-cta .mini-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+.bottom-cta .get-btn {
+    background: var(--primary);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 10px 24px;
+    border-radius: 20px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+.bottom-cta .get-btn:active {
+    background: var(--primary-dark);
+}
+
+/* Spacer for fixed bottom bar */
+.bottom-spacer {
+    height: 80px;
+}
+
+/* Section title */
+.section-title {
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* App info row */
+.app-info {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 16px;
+    position: relative;
+    z-index: 1;
+}
+.app-info-tag {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+</style>
+</head>
+<body>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="app-icon"><img src="icon.webp" alt="MediaClean"></div>
+    <h1>Clear Your <span>Media</span><br>In One Tap</h1>
+    <p class="subtitle">Photos, videos, duplicates - all cleaned smartly.</p>
+    <a href="https://mediaclean.onelink.me/rLpq" class="cta-button" id="cta-top" onclick="trackDownload('hero')">
+        <span class="apple-logo"></span> Get It Free
+    </a>
+    <div class="free-tag">100% Free to Try</div>
+    <div class="app-info">
+        <span class="app-info-tag">4+ Rating</span>
+        <span class="app-info-tag">iOS 16+</span>
+    </div>
+</section>
+
+<!-- Storage Animation -->
+<section class="storage-demo">
+    <div class="storage-card">
+        <div class="storage-title">Before MediaClean</div>
+        <div class="storage-bar-bg">
+            <div class="storage-bar-used before" id="bar-before"></div>
+        </div>
+        <div class="storage-label">
+            <span>Used: 58.2 GB</span>
+            <span>64 GB</span>
+        </div>
+        <div style="height:20px"></div>
+        <div class="storage-title">After MediaClean</div>
+        <div class="storage-bar-bg">
+            <div class="storage-bar-used after" id="bar-after"></div>
+        </div>
+        <div class="storage-label">
+            <span>Used: 31.5 GB</span>
+            <span>64 GB</span>
+        </div>
+        <div class="storage-saved" id="storage-saved">+26.7 GB Freed!</div>
+    </div>
+</section>
+
+<!-- Stats -->
+<section class="stats">
+    <div class="stat-item">
+        <div class="stat-number">80%</div>
+        <div class="stat-label">Video Compression</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number">1 Tap</div>
+        <div class="stat-label">Smart Clean</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Offline & Private</div>
+    </div>
+</section>
+
+<!-- Features -->
+<section class="features">
+    <h2 class="section-title">Why MediaClean?</h2>
+    <div class="features-grid">
+        <div class="feature-item">
+            <div class="feature-icon photos">📸</div>
+            <div class="feature-text">
+                <h3>Duplicate Photo Finder</h3>
+                <p>Auto-detect and remove duplicate & similar photos. Keeps the best, cleans the rest.</p>
+            </div>
+        </div>
+        <div class="feature-item">
+            <div class="feature-icon video">🎬</div>
+            <div class="feature-text">
+                <h3>Video Compressor</h3>
+                <p>Shrink videos up to 80% without losing quality. Save gigabytes instantly.</p>
+            </div>
+        </div>
+        <div class="feature-item">
+            <div class="feature-icon battery">🔋</div>
+            <div class="feature-text">
+                <h3>Battery Optimizer</h3>
+                <p>Real-time battery health monitoring with personalized tips to extend battery life.</p>
+            </div>
+        </div>
+        <div class="feature-item">
+            <div class="feature-icon privacy">🔒</div>
+            <div class="feature-text">
+                <h3>Private Vault</h3>
+                <p>PIN-protected space for sensitive photos and videos. Your secrets stay yours.</p>
+            </div>
+        </div>
+        <div class="feature-item">
+            <div class="feature-icon offline">📱</div>
+            <div class="feature-text">
+                <h3>Works Offline</h3>
+                <p>No internet needed. Your files never leave your device. 100% private.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Reviews -->
+<section class="reviews">
+    <h2 class="section-title">Users Love It</h2>
+    <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">"Freed up 15GB in minutes! My phone feels brand new. Can't believe this is free."</div>
+        <div class="review-author">- Sarah M., iPhone 13</div>
+    </div>
+    <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">"Finally a cleaner that actually works. Found hundreds of duplicate photos I didn't know I had."</div>
+        <div class="review-author">- James R., iPhone 15 Pro</div>
+    </div>
+    <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">"Simple and fast. One tap and done. Love that it works offline too."</div>
+        <div class="review-author">- Linda K., iPad Air</div>
+    </div>
+</section>
+
+<div class="bottom-spacer"></div>
+
+<!-- Fixed Bottom CTA -->
+<div class="bottom-cta">
+    <div class="mini-icon"><img src="icon.webp" alt="MediaClean"></div>
+    <div class="mini-info">
+        <div class="mini-name">MediaClean</div>
+        <div class="mini-desc">Clear media now</div>
+    </div>
+    <a href="https://mediaclean.onelink.me/rLpq" class="get-btn" id="cta-bottom" onclick="trackDownload('bottom')">GET</a>
+</div>
+
+<script>
+// ============================================================
+// Storage bar animation on scroll
+// ============================================================
+var animated = false;
+function animateBars() {
+    if (animated) return;
+    var card = document.querySelector('.storage-card');
+    if (!card) return;
+    var rect = card.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.8) {
+        animated = true;
+        setTimeout(function() {
+            document.getElementById('bar-before').style.width = '91%';
+        }, 200);
+        setTimeout(function() {
+            document.getElementById('bar-after').style.width = '49%';
+        }, 800);
+        setTimeout(function() {
+            document.getElementById('storage-saved').style.opacity = '1';
+        }, 1800);
+    }
+}
+window.addEventListener('scroll', animateBars);
+window.addEventListener('load', animateBars);
+
+// ============================================================
+// 配置区 — 替换为实际值
+// ============================================================
+// AppsFlyer Smart Script — 自动生成带归因参数的 OneLink URL
+// ============================================================
+var ONELINK_BASE = 'https://mediaclean.onelink.me/rLpq';
+
+var afResult = window.AF_SMART_SCRIPT.generateOneLinkURL({
+    oneLinkURL: 'https://mediaclean.onelink.me/rLpq',
+    webReferrer: 'af_ref_url',
+    afParameters: {
+        mediaSource: { keys: ['pid'], defaultValue: 'metaweb_int' },
+        campaign: { keys: ['c'], defaultValue: 'unknow' },
+        afCustom: [
+            { paramKey: 'af_c_id', keys: ['af_c_id'], defaultValue: 'unknow' },
+            { paramKey: 'af_ad_id', keys: ['af_ad_id'], defaultValue: 'unknow' },
+            { paramKey: 'af_adset_id', keys: ['af_adset_id'], defaultValue: 'unknow' },
+            { paramKey: 'af_siteid', keys: ['af_siteid'], defaultValue: 'unknow' },
+            { paramKey: 'af_ss_ui', defaultValue: 'true' }
+        ]
+    }
+});
+
+var REDIRECT_URL = (afResult && afResult.clickURL) ? afResult.clickURL : ONELINK_BASE;
+
+// 更新页面中所有跳转链接
+document.querySelectorAll('a[href*="onelink.me"]').forEach(function(a) {
+    a.href = REDIRECT_URL;
+});
+
+// ============================================================
+// FB Pixel + AF tracking
+// ============================================================
+function trackDownload(position) {
+    // FB Pixel: track InitiateCheckout
+    if (typeof fbq !== 'undefined') {
+        fbq('track', 'InitiateCheckout', {
+            content_name: 'MediaClean',
+            content_category: 'app_download',
+            value: 0,
+            currency: 'USD'
+        });
+    }
+
+    // AppsFlyer: track click
+    if (typeof AF !== 'undefined') {
+        AF('pba', 'event', {
+            eventType: 'EVENT',
+            eventName: 'w2a_click',
+            eventValue: { position: position }
+        });
+    }
+}
+
+// Track page view duration
+var pageStart = Date.now();
+window.addEventListener('beforeunload', function() {
+    var duration = Math.round((Date.now() - pageStart) / 1000);
+    if (typeof fbq !== 'undefined' && duration > 5) {
+        fbq('trackCustom', 'PageEngagement', {
+            duration_seconds: duration,
+            scrolled: window.scrollY > 300
+        });
+    }
+});
+
+// Whole page click → redirect (immediate)
+document.addEventListener('click', function(e) {
+    if (e.target.closest('a, button')) return;
+    trackDownload('page');
+    window.location.href = REDIRECT_URL;
+});
+
+// Track scroll depth
+var scrollTracked = {};
+window.addEventListener('scroll', function() {
+    var pct = Math.round(100 * window.scrollY / (document.body.scrollHeight - window.innerHeight));
+    [25, 50, 75, 100].forEach(function(milestone) {
+        if (pct >= milestone && !scrollTracked[milestone]) {
+            scrollTracked[milestone] = true;
+            if (typeof fbq !== 'undefined') {
+                fbq('trackCustom', 'ScrollDepth', { percent: milestone });
+            }
+        }
+    });
+});
+</script>
+
+</body>
+</html>
